@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patriot — Coming Soon</title>
+  <meta name="description"
+    content="Patriot — the first axiosophic newspaper. Verifiable truth, sovereign journalism. Coming soon." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Patriot" />
+  <meta property="og:description"
+    content="The first axiosophic newspaper. Verifiable truth, sovereign journalism." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://patriot.pub" />
+
+  <!-- Favicon: inline data URI of a small star -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>★</text></svg>" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="scene">
+
+    <!-- Ambient grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Logo mark -->
+    <div class="logo-container" aria-label="Patriot logo">
+      <svg class="logo" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Patriot emblem — quill and star">
+        <!-- Outer ring -->
+        <circle cx="160" cy="160" r="148" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25" />
+        <circle cx="160" cy="160" r="138" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.12" />
+
+        <!-- Star — five-pointed, constructed from path -->
+        <g transform="translate(160,145)" opacity="0.9">
+          <path
+            d="M0,-52 L12.2,-16 L50,-16 L19.5,6.5 L30.5,42 L0,20.5 L-30.5,42 L-19.5,6.5 L-50,-16 L-12.2,-16 Z"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        </g>
+
+        <!-- Quill — simplified calligraphy pen nib -->
+        <g transform="translate(160,160)" opacity="0.7">
+          <!-- Quill shaft -->
+          <line x1="0" y1="25" x2="0" y2="95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          <!-- Nib split -->
+          <line x1="-3" y1="88" x2="3" y2="88" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+          <!-- Feather barbs — left -->
+          <line x1="0" y1="40" x2="-18" y2="28" stroke="currentColor" stroke-width="0.7" opacity="0.4" />
+          <line x1="0" y1="50" x2="-22" y2="38" stroke="currentColor" stroke-width="0.7" opacity="0.35" />
+          <line x1="0" y1="60" x2="-24" y2="50" stroke="currentColor" stroke-width="0.7" opacity="0.3" />
+          <line x1="0" y1="70" x2="-22" y2="62" stroke="currentColor" stroke-width="0.7" opacity="0.25" />
+          <!-- Feather barbs — right -->
+          <line x1="0" y1="40" x2="18" y2="28" stroke="currentColor" stroke-width="0.7" opacity="0.4" />
+          <line x1="0" y1="50" x2="22" y2="38" stroke="currentColor" stroke-width="0.7" opacity="0.35" />
+          <line x1="0" y1="60" x2="24" y2="50" stroke="currentColor" stroke-width="0.7" opacity="0.3" />
+          <line x1="0" y1="70" x2="22" y2="62" stroke="currentColor" stroke-width="0.7" opacity="0.25" />
+        </g>
+
+        <!-- Decorative dots on ring — cardinal points -->
+        <circle cx="160" cy="12" r="2" fill="currentColor" opacity="0.3" />
+        <circle cx="160" cy="308" r="2" fill="currentColor" opacity="0.3" />
+        <circle cx="12" cy="160" r="2" fill="currentColor" opacity="0.3" />
+        <circle cx="308" cy="160" r="2" fill="currentColor" opacity="0.3" />
+      </svg>
+    </div>
+
+    <!-- Masthead -->
+    <h1 class="masthead">
+      <span class="masthead-the">THE</span>
+      <span class="masthead-name">PATRIOT</span>
+    </h1>
+
+    <p class="tagline">Axiosophic Journalism</p>
+
+    <div class="rule" aria-hidden="true"></div>
+
+    <p class="proclamation">
+      Verifiable truth. Sovereign source.<br />
+      The first newspaper built on structural integrity.
+    </p>
+
+    <div class="status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">Constructing the press</span>
+    </div>
+
+    <!-- Email signup placeholder -->
+    <div class="cta-block">
+      <p class="cta-label">Be notified when we publish</p>
+      <form class="signup-form" action="#" method="post" onsubmit="return false;">
+        <input id="email-input" type="email" name="email" placeholder="your@email.com" autocomplete="email"
+          aria-label="Email address" required />
+        <button id="notify-btn" type="submit">Notify me</button>
+      </form>
+    </div>
+
+    <footer class="site-footer">
+      <span class="copyleft">🄯</span> patriot.pub · MMXXVI
+    </footer>
+  </div>
+</body>
+
+</html>
