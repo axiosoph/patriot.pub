@@ -7,6 +7,18 @@
   box-sizing: border-box;
 }
 
+/* ── Honeypot hiding ─────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 /* ── Palette ─────────────────────────────────────────────── */
 :root {
   --bg:            #0e0e0e;
@@ -297,6 +309,22 @@ body {
 
 .signup-form button:active {
   background: var(--accent-hover);
+}
+
+/* ── Back link (success page) ────────────────────────────── */
+.back-link {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-visible);
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: 3rem;
+}
+
+.back-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
