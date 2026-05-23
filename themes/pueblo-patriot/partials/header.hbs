@@ -1,0 +1,56 @@
+<header class="site-header">
+    <div class="container">
+        
+        <!-- Header Utility Top Bar -->
+        <div class="header-top">
+            <div class="header-date">
+                <span id="current-date">Pueblo, Colorado</span>
+            </div>
+            <div class="header-tagline">
+                {{#if @site.description}}
+                    {{@site.description}}
+                {{else}}
+                    Pueblo's Independent Voice
+                {{/if}}
+            </div>
+            <div class="header-meta">
+                <span>Verifiable Truth · Sovereign Source</span>
+            </div>
+        </div>
+
+        <!-- Masthead -->
+        <div class="header-masthead">
+            <a href="{{@site.url}}">
+                <span class="masthead-the">THE</span>
+                <span class="masthead-title">Pueblo Patriot</span>
+            </a>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="header-nav">
+            {{navigation}}
+            
+            <div class="nav-actions">
+                {{#if @member}}
+                    <a href="#/portal/account" class="btn btn-secondary">Account</a>
+                {{else}}
+                    <a href="#/portal/signin" class="btn btn-secondary">Sign In</a>
+                    <a href="#/portal/signup" class="btn btn-primary">Subscribe</a>
+                {{/if}}
+            </div>
+        </nav>
+        
+    </div>
+</header>
+
+<script>
+    // Format and display local date on the masthead (classic newspaper style)
+    document.addEventListener("DOMContentLoaded", () => {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateStr = new Date().toLocaleDateString('en-US', options);
+        const dateEl = document.getElementById("current-date");
+        if (dateEl) {
+            dateEl.textContent = `Pueblo, CO · ${dateStr}`;
+        }
+    });
+</script>

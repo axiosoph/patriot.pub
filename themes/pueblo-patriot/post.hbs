@@ -1,0 +1,84 @@
+{{!< default}}
+
+{{#post}}
+<article class="container-narrow {{post_class}}">
+    
+    <!-- Article Header -->
+    <header class="article-header">
+        {{#if primary_tag}}
+        <div class="article-kicker">
+            <a href="{{primary_tag.url}}">{{primary_tag.name}}</a>
+        </div>
+        {{/if}}
+        
+        <h1 class="article-title">{{title}}</h1>
+        
+        {{#if custom_excerpt}}
+        <p class="article-subtitle" style="font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.5; color: var(--color-ink-muted); margin-bottom: var(--space-md); font-style: italic;">
+            {{custom_excerpt}}
+        </p>
+        {{/if}}
+        
+        <!-- Post Metadata -->
+        <div class="article-meta">
+            <div class="article-author">
+                <span class="byline-prefix">By</span>
+                {{authors autolink="true"}}
+            </div>
+            <span class="bull">&bull;</span>
+            <time class="article-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM DD, YYYY"}}</time>
+            <span class="bull">&bull;</span>
+            <span class="article-read-time">{{reading_time}}</span>
+        </div>
+    </header>
+
+    <!-- Feature Image -->
+    {{#if feature_image}}
+    <figure class="article-feature-image-wrapper">
+        <img class="article-feature-image" 
+            src="{{feature_image}}" 
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" 
+        />
+        {{#if feature_image_caption}}
+            <figcaption style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-muted); text-align: center; margin-top: var(--space-sm);">
+                {{feature_image_caption}}
+            </figcaption>
+        {{/if}}
+    </figure>
+    {{/if}}
+
+    <!-- Article Content -->
+    <div class="article-content">
+        {{#if access}}
+            {{content}}
+        {{else}}
+            <!-- Public Preview Text (first part of content is rendered automatically) -->
+            {{content}}
+
+            <!-- Subscription Gating Paywall Card -->
+            <div class="paywall-gate" style="border: 2px solid var(--color-sun); border-radius: 6px; padding: var(--space-xl) var(--space-lg); margin-top: var(--space-xl); text-align: center; background-color: var(--color-white); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <span style="font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; color: var(--color-brick); font-weight: 700; display: block; margin-bottom: var(--space-sm);">Sovereign Journalism</span>
+                <h3 style="font-size: 1.75rem; margin-bottom: var(--space-sm);">This investigation is reserved for Patriots</h3>
+                <p style="color: var(--color-ink-muted); font-size: 1rem; margin-bottom: var(--space-lg); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    We answer to readers, not corporate advertisers. Support independent news in Pueblo and unlock full access to all articles and our archive.
+                </p>
+                <div style="display: flex; gap: var(--space-sm); justify-content: center;">
+                    <a href="#/portal/signup" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Join the Patriot Tiers</a>
+                    <a href="#/portal/signin" class="btn btn-secondary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Sign In</a>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+
+    <!-- Article Footer / Comments -->
+    {{#if comments}}
+    <section class="article-comments" style="border-top: 1px solid var(--color-border); padding-top: var(--space-xl); margin-top: var(--space-xl);">
+        <h3 style="font-size: 1.5rem; margin-bottom: var(--space-md); font-family: var(--font-sans); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--color-sky);">
+            Citizen Discourse
+        </h3>
+        {{comments title="Reader Comments" count=true mode="auto"}}
+    </section>
+    {{/if}}
+
+</article>
+{{/post}}

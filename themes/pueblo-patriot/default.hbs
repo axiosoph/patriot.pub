@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{meta_title}}</title>
+    
+    <!-- Google Fonts: Newsreader (serif), IBM Plex Sans (sans), JetBrains Mono (mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;0,6..72,900;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{asset "css/main.css"}}" />
+
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+<div class="site-wrapper">
+
+    <!-- Brand Header -->
+    {{> "header"}}
+
+    <!-- Main Content Area -->
+    <main>
+        {{{body}}}
+    </main>
+
+    <!-- Brand Footer -->
+    {{> "footer"}}
+
+</div>
+
+{{ghost_foot}}
+</body>
+</html>

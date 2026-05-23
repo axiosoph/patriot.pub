@@ -1,0 +1,55 @@
+<article class="post-card {{post_class}} {{#if featured}}featured{{/if}}">
+
+    {{#if feature_image}}
+    <a class="post-card-image-link" href="{{url}}">
+        <img class="post-card-image"
+            srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w"
+            sizes="(max-width: 600px) 300px, (max-width: 900px) 600px, 1000px"
+            src="{{img_url feature_image size="m"}}"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+            loading="lazy"
+        />
+    </a>
+    {{/if}}
+
+    <div class="post-card-content">
+        
+        <!-- Post Card Meta (Beat tag + Read Time) -->
+        <div class="post-card-meta">
+            {{#if primary_tag}}
+                {{#primary_tag}}
+                    <span class="post-card-tag">{{name}}</span>
+                {{/primary_tag}}
+                <span class="bull">&bull;</span>
+            {{/if}}
+            <span class="post-card-date">{{date format="MMM DD, YYYY"}}</span>
+            <span class="bull">&bull;</span>
+            <span class="post-card-reading-time">{{reading_time}}</span>
+        </div>
+
+        <!-- Post Title -->
+        <h3 class="post-card-title">
+            <a href="{{url}}">{{title}}</a>
+        </h3>
+
+        <!-- Post Excerpt -->
+        <p class="post-card-excerpt">
+            {{excerpt words="30"}}...
+        </p>
+
+        <!-- Post Card Footer -->
+        <div class="post-card-footer">
+            <div class="post-card-authors">
+                <span class="byline-prefix">By</span>
+                {{authors autolink="true"}}
+            </div>
+            {{#if featured}}
+                <span class="post-card-featured-badge" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-sun); font-weight: 700; text-transform: uppercase;">Featured</span>
+            {{/if}}
+        </div>
+
+    </div>
+
+</article>

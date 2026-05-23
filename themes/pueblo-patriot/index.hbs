@@ -1,0 +1,71 @@
+{{!< default}}
+
+<div class="container">
+    
+    <!-- Editorial Grid Feed -->
+    <div class="post-feed">
+        {{#foreach posts}}
+            {{> "card"}}
+        {{else}}
+            <div class="no-posts" style="grid-column: span 12; text-align: center; padding: var(--space-xl) 0; font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-ink-muted);">
+                Constructing the press. Articles are being queued for publication.
+            </div>
+        {{/foreach}}
+    </div>
+
+    <!-- Feed Pagination -->
+    {{pagination}}
+
+    <!-- Call to Action Banner -->
+    {{^if @member}}
+    <section class="newsletter-cta">
+        <div class="container-narrow">
+            <h3>Be notified when we publish</h3>
+            <p>Get independent, investigative local reporting, civic updates, and neighborhood features sent directly to your inbox. No trackers, no spam, no sold data.</p>
+            
+            <form class="signup-form" data-members-form="subscribe">
+                <input data-members-email type="email" placeholder="your@email.com" required autocomplete="email" aria-label="Email address" />
+                <button type="submit">Subscribe</button>
+            </form>
+            
+            <div class="success-message" style="display: none; margin-top: var(--space-md); font-family: var(--font-mono); color: var(--color-sun); font-size: 0.9rem;">
+                ✔ Subscription verification email dispatched! Please check your inbox.
+            </div>
+            <div class="error-message" style="display: none; margin-top: var(--space-md); font-family: var(--font-mono); color: var(--color-brick); font-size: 0.9rem;">
+                ✘ An error occurred. Please try again.
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+</div>
+
+<script>
+    // Native Ghost member form handlers (toggling success/error classes)
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("[data-members-form='subscribe']");
+        const successMsg = document.querySelector(".success-message");
+        const errorMsg = document.querySelector(".error-message");
+
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                // Ghost handles submission via ajax, but we listen for the status classes added to form
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.attributeName === "class") {
+                            const classes = form.className;
+                            if (classes.includes("success")) {
+                                if (successMsg) successMsg.style.display = "block";
+                                if (errorMsg) errorMsg.style.display = "none";
+                            } else if (classes.includes("error")) {
+                                if (successMsg) successMsg.style.display = "none";
+                                if (errorMsg) errorMsg.style.display = "block";
+                            }
+                        }
+                    });
+                });
+                observer.observe(form, { attributes: true });
+            });
+        }
+    });
+</script>
