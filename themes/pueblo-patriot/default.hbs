@@ -16,6 +16,7 @@
     {{ghost_head}}
 </head>
 <body class="{{body_class}}">
+<div class="scroll-progress" aria-hidden="true"></div>
 <div class="site-wrapper">
 
     <!-- Brand Header -->
@@ -32,5 +33,19 @@
 </div>
 
 {{ghost_foot}}
+<script>
+  if (!CSS.supports('animation-timeline', 'scroll()')) {
+    const progress = document.querySelector('.scroll-progress');
+    if (progress) {
+      progress.style.transform = 'scaleX(0)';
+      window.addEventListener('scroll', () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = window.scrollY;
+        const progressPercentage = scrollable > 0 ? (scrolled / scrollable) : 0;
+        progress.style.transform = `scaleX(${progressPercentage})`;
+      }, { passive: true });
+    }
+  }
+</script>
 </body>
 </html>
