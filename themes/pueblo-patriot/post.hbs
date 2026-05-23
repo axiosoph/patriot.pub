@@ -72,10 +72,8 @@
 
     <!-- Article Footer / Comments -->
     {{#if comments}}
-    <section class="article-comments" style="border-top: 1px solid var(--color-border); padding-top: var(--space-xl); margin-top: var(--space-xl);">
-        <h3 style="font-size: 1.5rem; margin-bottom: var(--space-md); font-family: var(--font-sans); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--color-sky);">
-            Citizen Discourse
-        </h3>
+    <section class="article-comments">
+        <h3 class="comments-title">Citizen Discourse</h3>
         {{comments title="Reader Comments" count=true mode="auto"}}
     </section>
     {{/if}}

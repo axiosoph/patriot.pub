@@ -1030,3 +1030,22 @@ main {
   padding: 0.6rem 1.75rem;
   font-size: 0.85rem;
 }
+
+/* ── Citizen Discourse Comments Component ────────────────────────────────── */
+.article-comments {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.comments-title {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-sky);
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-xs);
+}
