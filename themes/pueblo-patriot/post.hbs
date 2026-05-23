@@ -14,7 +14,7 @@
         <h1 class="article-title">{{title}}</h1>
         
         {{#if custom_excerpt}}
-        <p class="article-subtitle" style="font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.5; color: var(--color-ink-muted); margin-bottom: var(--space-md); font-style: italic;">
+        <p class="article-subtitle">
             {{custom_excerpt}}
         </p>
         {{/if}}
@@ -40,7 +40,7 @@
             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" 
         />
         {{#if feature_image_caption}}
-            <figcaption style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-muted); text-align: center; margin-top: var(--space-sm);">
+            <figcaption class="article-feature-image-caption">
                 {{feature_image_caption}}
             </figcaption>
         {{/if}}
