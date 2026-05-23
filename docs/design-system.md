@@ -10,33 +10,43 @@ Our colors are derived from the regional landscape and industrial heritage of Pu
 
 | Token | CSS Variable | Hex | Role | Contrast Context |
 | :--- | :--- | :--- | :--- | :--- |
-| **Sky** | `--color-sky` | `#1B3F8B` | Primary Blue | Used for brand title, links, navigation accents, and buttons. |
-| **Brick** | `--color-brick` | `#B0473C` | Accent Red | Used for kickers, category tags, warnings, and quote accents. |
-| **Sun** | `--color-sun` | `#D9A23D` | Accent Gold | Gated member badges, paywall borders, and secondary highlights. |
-| **Paper** | `--color-paper` | `#F6F2EA` | Background | Warm off-white page background. Reduces harsh blue-light strain. |
-| **Ink** | `--color-ink` | `#16181D` | Text | Deep charcoal (never pure black) body copy for high readability. |
-| **Border** | `--color-border` | `#E3DDD3` | Borders | Grid lines, sidebar separations, and dividers. |
+| **Sky** | `--color-sky` | `#1B3F8B` | Primary Blue | Used for primary branding accents, links, navigation details, and interactive buttons. |
+| **Brick** | `--color-brick` | `#B0473C` | Accent Red | Used for article kickers, category tags, error states, and decorative blockquote lines. |
+| **Sun** | `--color-sun` | `#D9A23D` | Accent Gold | Used for paywall borders, membership badge outlines, and subscription prompts. |
+| **Paper** | `--color-paper` | `#F6F2EA` | Background | Warm, low-contrast off-white page canvas resembling traditional newsprint. |
+| **Ink** | `--color-ink` | `#16181D` | Text & Titlepiece | Deep charcoal (never absolute black) used for body copy and the unified logo title. |
+| **Border** | `--color-border` | `#E3DDD3` | Borders | Hairline broadsheet columns, dividers, and sidebar separators. |
 
 ---
 
-## 2. Typography
+## 2. Typography Hierarchy
 
-We use self-hosted/CDN Google Fonts selected to emulate the vintage print newspaper tradition while remaining readable on modern displays.
+We load self-hosted/CDN Google Fonts mapped to explicit functional roles to optimize the tension between digital scanning speeds and print-editorial aesthetics.
 
-### Headline Typography (Serif)
-- **Family**: `"Newsreader", Georgia, serif`
-- **Use**: Page titles (`h1`), article titles (`h2`, `h3`), blockquotes, and long-form narrative.
-- **Attributes**: Line-height should hover around `1.0` to `1.15` for tight, elegant newspaper titles.
+### 1. Identity Serif (Masthead Logo)
+- **Family**: `"UnifrakturMaguntia", serif`
+- **Use**: Main header titlepiece logo.
+- **Role**: Emulates traditional print-press blackletter typeface. Always rendered in a solid, flat `--color-ink` tone.
 
-### Body Copy & UI (Sans-Serif)
+### 2. Display Serif (Headlines)
+- **Family**: `"Fraunces", Georgia, serif`
+- **Use**: Page titles (`h1`), index feed titles (`h2`, `h3`, `.lead-story-title`), section headers.
+- **Attributes**: Line-height restricted to `1.0`–`1.15` for dense, high-impact titles. Features vintage woodblock curvatures.
+
+### 3. Reading Serif (Long-Form Body)
+- **Family**: `"Newsreader", serif`
+- **Use**: Long-form article text (`.article-content p`, blockquotes).
+- **Attributes**: Variable optical sizes are configured for micro-typographical legibility at small sizes; line-height scaled to `1.625`.
+
+### 4. Grotesque Sans-Serif (UI & Navigation)
 - **Family**: `"IBM Plex Sans", sans-serif`
-- **Use**: Body text, navigation elements, sidebars, buttons, metadata.
-- **Attributes**: Line-height is scaled to `1.625` for optimal reading tracking.
+- **Use**: Navigation links, buttons, sidebar beats list, form controls, footer resources.
+- **Attributes**: Font weight scaled from `400` to `700` for structure.
 
-### Code & Metadata (Monospace)
+### 5. Monospace (Metadata)
 - **Family**: `"JetBrains Mono", monospace`
-- **Use**: Date displays, reading times, tags, code snippets, form labels.
-- **Attributes**: Always set to `text-transform: uppercase` and `letter-spacing: 0.05em` when used as kicks/headers.
+- **Use**: Timestamps, kicker tags, word/read counters, form labels.
+- **Attributes**: Capitalized (`text-transform: uppercase`) with positive tracking (`letter-spacing: 0.05em`).
 
 ---
 
