@@ -212,11 +212,14 @@ main {
 
 .nav-links a {
   color: var(--color-ink);
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .nav-links a:hover, .nav-links .nav-current a {
   color: var(--color-sky);
-  border-bottom: 2px solid var(--color-sky);
+  border-color: var(--color-sky);
 }
 
 .nav-actions {
@@ -490,12 +493,26 @@ main {
 .article-content blockquote {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 1.5;
   color: var(--color-brick);
   border-left: 4px solid var(--color-brick);
   padding-left: var(--space-md);
-  margin: var(--space-lg) 0;
+  margin: var(--space-xl) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.article-content blockquote::before {
+  content: "“";
+  font-family: var(--font-serif);
+  font-size: 6rem;
+  line-height: 1;
+  color: rgba(176, 71, 60, 0.12); /* Semi-transparent brick accent */
+  position: absolute;
+  left: -0.5rem;
+  top: -1.8rem;
+  z-index: -1;
 }
 
 /* ── Newsletter CTA Component ──────────────────────────────────────────── */
@@ -1085,5 +1102,43 @@ main {
       animation: grow-progress auto linear;
       animation-timeline: scroll();
     }
+  }
+}
+
+/* ── Dark Mode Adaptations (Prefers Color Scheme) ──────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #121418;      /* Deep charcoal background */
+    --color-ink: #EAE5DB;        /* Crisp warm paper text */
+    --color-ink-muted: #8E95A2;  /* Muted text */
+    --color-border: #242831;     /* Dark charcoal borders */
+    --color-white: #1B1D24;      /* Elevated card backgrounds */
+    
+    /* Accessibility-compliant lightened accent tokens for dark backgrounds */
+    --color-sky: #5583E6;        /* High-contrast pastel sky blue */
+    --color-brick: #D46A5D;      /* Softened brick red */
+    --color-sun: #E1B258;        /* Radiant gold */
+  }
+  
+  /* Legacy WebKit scrollbar track adjustment for dark theme */
+  @supports not (scrollbar-color: auto) {
+    html::-webkit-scrollbar-track {
+      background: var(--color-paper);
+    }
+  }
+  
+  /* Image opacity softening for dark mode reading comfort */
+  img {
+    opacity: 0.9;
+    transition: opacity var(--transition-normal);
+  }
+  
+  img:hover {
+    opacity: 1.0;
+  }
+  
+  /* Drop shadow opacity softening for dark panels */
+  .post-card, .lead-story-card, .paywall-gate, .sidebar-widget {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   }
 }
