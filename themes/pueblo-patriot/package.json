@@ -2,6 +2,9 @@
   "name": "pueblo-patriot",
   "description": "Custom, high-fidelity Ghost CMS theme for the Pueblo Patriot local newspaper.",
   "version": "1.0.0",
+  "keywords": [
+    "ghost-theme"
+  ],
   "engines": {
     "ghost": ">=5.0.0"
   },
