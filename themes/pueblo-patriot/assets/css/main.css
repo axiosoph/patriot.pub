@@ -436,6 +436,14 @@ main {
   color: var(--color-ink);
 }
 
+.post-card-featured-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-sun);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 /* ── Full Post View ────────────────────────────────────────────────────── */
 .article-header {
   text-align: center;
@@ -714,6 +722,12 @@ main {
   letter-spacing: 0.1em;
   margin-bottom: var(--space-md);
   color: var(--color-ink);
+}
+
+.footer-widget-promise {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0;
 }
 
 .footer-widget ul {
