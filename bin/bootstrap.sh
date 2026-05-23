@@ -100,6 +100,10 @@ fi
 echo "Disabling ActivityPub (social_web) setting in database..."
 mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings SET value = 'false' WHERE \`key\` = 'social_web';"
 
+# Set the active theme to pueblo-patriot
+echo "Setting active theme to 'pueblo-patriot' in database..."
+mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings SET value = 'pueblo-patriot' WHERE \`key\` = 'active_theme';"
+
 # 7. Configure Ghost mail options to intercept via Mailpit
 echo "Configuring Ghost SMTP routing to Mailpit..."
 node -e '
