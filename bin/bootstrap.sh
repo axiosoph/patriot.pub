@@ -89,6 +89,9 @@ if [ ! -f "ghost-app/config.development.json" ]; then
     --no-setup-ssl \
     --no-setup-nginx \
     --no-start
+  
+  echo "Running database migrations..."
+  (cd ghost-app && NODE_ENV=development ./current/node_modules/.bin/knex-migrator init --mgpath ./current)
 else
   echo "Ghost CMS already installed. Skipping installation."
 fi
