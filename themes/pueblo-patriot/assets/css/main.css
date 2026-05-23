@@ -204,6 +204,14 @@ main {
   margin-top: var(--space-xs);
 }
 
+.menu-toggle {
+  display: none;
+}
+
+.mobile-drawer-actions {
+  display: none;
+}
+
 /* Ghost outputs the '.nav' class for navigation menus */
 .nav {
   list-style: none;
@@ -1303,5 +1311,109 @@ main {
   /* Drop shadow opacity softening for dark panels */
   .post-card, .lead-story-card, .paywall-gate, .sidebar-widget {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ── Responsive Navigation for Mobile ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 110;
+    margin-right: var(--space-xs);
+  }
+
+  .menu-toggle-icon {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-ink);
+    position: relative;
+    transition: background-color var(--transition-fast);
+  }
+
+  .menu-toggle-icon::before,
+  .menu-toggle-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-ink);
+    transition: transform var(--transition-fast), top var(--transition-fast);
+  }
+
+  .menu-toggle-icon::before { top: -6px; }
+  .menu-toggle-icon::after { top: 6px; }
+
+  /* Hamburger to X animation */
+  .header-nav.menu-open .menu-toggle-icon {
+    background-color: transparent;
+  }
+  .header-nav.menu-open .menu-toggle-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  .header-nav.menu-open .menu-toggle-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .header-nav {
+    flex-wrap: wrap; /* Drop collapsible content to new row */
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .nav {
+    display: none; /* Hide link list by default */
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-xs);
+  }
+
+  .header-nav.menu-open .nav {
+    display: flex;
+  }
+
+  .nav a {
+    display: block;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .nav a:last-child {
+    border-bottom: none;
+  }
+
+  /* Collapsible mobile drawer actions */
+  .header-nav.menu-open .mobile-drawer-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-sm);
+  }
+
+  /* Row CTA: Hide Sign In, keep Subscribe compact */
+  .nav-actions {
+    gap: var(--space-xs);
+  }
+
+  .nav-actions .header-btn-signin {
+    display: none; /* Relocate to drawer */
+  }
+
+  .nav-actions .header-btn-subscribe {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
   }
 }
