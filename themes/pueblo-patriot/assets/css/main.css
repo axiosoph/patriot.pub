@@ -1929,3 +1929,122 @@ main {
     aspect-ratio: 16/10;
   }
 }
+
+/* ── Pagination Component ───────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--space-xl) 0;
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pagination a {
+  color: var(--color-ink);
+  text-decoration: none;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all var(--transition-fast) ease;
+}
+
+.pagination a:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.page-number {
+  color: var(--color-ink-muted);
+}
+
+/* ── Error Page Component ───────────────────────────────────────────────── */
+.error-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.error-card {
+  max-width: 600px;
+  border: 1.5px solid var(--color-ink);
+  padding: var(--space-xl);
+  background-color: var(--color-paper);
+  border-radius: 0;
+}
+
+.error-code-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-brick);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.error-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+}
+
+.error-message-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+}
+
+.error-divider {
+  border-top: 3px double var(--color-border);
+  margin: var(--space-lg) 0;
+}
+
+.error-suggestion {
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Static Page Layouts ────────────────────────────────────────────────── */
+.page-header {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.page-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-md);
+  font-style: italic;
+  text-align: center;
+}
+
+.page-divider {
+  width: 40px;
+  height: 2px;
+  background-color: var(--color-sun);
+  margin: var(--space-md) auto 0;
+}

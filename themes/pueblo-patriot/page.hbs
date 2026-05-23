@@ -5,16 +5,16 @@
     
     {{#match @page.show_title_and_feature_image}}
     <!-- Static Page Header -->
-    <header class="article-header" style="margin-bottom: var(--space-xl);">
+    <header class="article-header page-header">
         <h1 class="article-title">{{title}}</h1>
         
         {{#if custom_excerpt}}
-        <p class="article-subtitle" style="font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.5; color: var(--color-ink-muted); margin-bottom: var(--space-md); font-style: italic;">
+        <p class="article-subtitle page-subtitle">
             {{custom_excerpt}}
         </p>
         {{/if}}
         
-        <div style="width: 40px; height: 2px; background-color: var(--color-sun); margin: var(--space-md) auto 0;"></div>
+        <div class="page-divider"></div>
     </header>
 
     <!-- Page Feature Image -->
@@ -25,7 +25,7 @@
             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" 
         />
         {{#if feature_image_caption}}
-            <figcaption style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-muted); text-align: center; margin-top: var(--space-sm);">
+            <figcaption class="article-feature-image-caption">
                 {{feature_image_caption}}
             </figcaption>
         {{/if}}
