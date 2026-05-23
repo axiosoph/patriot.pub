@@ -14,6 +14,7 @@ pkgs.mkShell {
     pkgs.process-compose
     pkgs.python3Packages.setuptools
     pkgs.just
+    pkgs.stripe-cli
   ];
 
   shellHook = ''

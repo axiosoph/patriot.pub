@@ -121,12 +121,11 @@ This script:
 
 ### Testing Stripe Paid Subscriptions Locally:
 Ghost utilizes Stripe checkout events for paid tiers. To test this flow locally:
-1. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) on your machine.
-2. Log in to your Stripe account using:
+1. Log in to your Stripe account using the pre-installed Stripe CLI inside the Nix shell:
    ```bash
    stripe login
    ```
-3. Run the webhook forwarder to pipe billing events directly to your local database:
+2. Run the webhook forwarder to pipe billing events directly to your local database:
    ```bash
    just stripe-listen
    ```
