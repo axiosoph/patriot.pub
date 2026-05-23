@@ -45,6 +45,24 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   background-color: var(--color-paper);
+  --scrollbar-thumb: var(--color-sky);
+  --scrollbar-track: var(--color-paper);
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+
+@supports not (scrollbar-color: auto) {
+  html::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  html::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+  }
+  html::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
 }
 
 body {
@@ -63,6 +81,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.15;
   color: var(--color-ink);
   margin-bottom: var(--space-sm);
+  text-wrap: balance; /* Symmetrical line wrapping for news headers */
 }
 
 h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
@@ -72,6 +91,7 @@ h4 { font-size: 1.25rem; }
 
 p {
   margin-bottom: var(--space-md);
+  text-wrap: pretty; /* Prevents orphaned words at ends of paragraphs */
 }
 
 a {
@@ -949,4 +969,64 @@ main {
   .sponsor-btn {
     width: 100%;
   }
+}
+
+/* ── Premium Paywall Component ─────────────────────────────────────────── */
+.paywall-gate {
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--color-sun);
+  border-radius: 6px;
+  padding: var(--space-xl) var(--space-lg);
+  margin: var(--space-xl) 0;
+  text-align: center;
+  background-color: var(--color-white);
+  box-shadow: 0 10px 30px rgba(22, 24, 29, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.paywall-gate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(22, 24, 29, 0.08);
+}
+
+.paywall-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--color-brick);
+  font-weight: 700;
+  display: block;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.paywall-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink);
+}
+
+.paywall-text {
+  color: var(--color-ink-muted);
+  font-size: 1rem;
+  margin-bottom: var(--space-lg);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.paywall-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.paywall-btn {
+  padding: 0.6rem 1.75rem;
+  font-size: 0.85rem;
 }

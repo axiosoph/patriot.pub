@@ -52,19 +52,19 @@
         {{#if access}}
             {{content}}
         {{else}}
-            <!-- Public Preview Text (first part of content is rendered automatically) -->
+            <!-- Public Preview Text -->
             {{content}}
 
             <!-- Subscription Gating Paywall Card -->
-            <div class="paywall-gate" style="border: 2px solid var(--color-sun); border-radius: 6px; padding: var(--space-xl) var(--space-lg); margin-top: var(--space-xl); text-align: center; background-color: var(--color-white); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <span style="font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; color: var(--color-brick); font-weight: 700; display: block; margin-bottom: var(--space-sm);">Sovereign Journalism</span>
-                <h3 style="font-size: 1.75rem; margin-bottom: var(--space-sm);">This investigation is reserved for Patriots</h3>
-                <p style="color: var(--color-ink-muted); font-size: 1rem; margin-bottom: var(--space-lg); max-width: 500px; margin-left: auto; margin-right: auto;">
+            <div class="paywall-gate">
+                <span class="paywall-kicker">Sovereign Journalism</span>
+                <h3 class="paywall-title">This investigation is reserved for Patriots</h3>
+                <p class="paywall-text">
                     We answer to readers, not corporate advertisers. Support independent news in Pueblo and unlock full access to all articles and our archive.
                 </p>
-                <div style="display: flex; gap: var(--space-sm); justify-content: center;">
-                    <a href="#/portal/signup" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Join the Patriot Tiers</a>
-                    <a href="#/portal/signin" class="btn btn-secondary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Sign In</a>
+                <div class="paywall-actions">
+                    <a href="#/portal/signup" class="btn btn-primary paywall-btn">Join the Patriot Tiers</a>
+                    <a href="#/portal/signin" class="btn btn-secondary paywall-btn">Sign In</a>
                 </div>
             </div>
         {{/if}}
