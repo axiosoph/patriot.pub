@@ -3,8 +3,11 @@ name: Deploy Custom Theme
 on:
   push:
     branches: [ master, main ]
+    tags:
+      - 'v*' # Trigger production deploy on version tags (e.g., v1.0.0)
   pull_request:
     branches: [ master, main ]
+  workflow_dispatch: # Enable manual release execution from the GitHub Actions UI
 
 jobs:
   test-and-validate:
@@ -23,19 +26,39 @@ jobs:
         run: |
           npx gscan themes/pueblo-patriot
 
-  deploy:
-    name: Deploy to Ghost CMS
+  deploy-staging:
+    name: Deploy to Staging
     needs: test-and-validate
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    # Deploy to staging automatically on push to default branch (not on release tags)
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Package & Deploy Theme
+      - name: Deploy to Staging Ghost
         uses: tryghost/action-deploy-theme@v3
         with:
-          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
-          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          api-url: ${{ secrets.GHOST_STAGING_API_URL }}
+          api-key: ${{ secrets.GHOST_STAGING_API_KEY }}
+          theme-name: pueblo-patriot-staging
+          file: themes/pueblo-patriot
+
+  deploy-production:
+    name: Deploy to Production
+    needs: test-and-validate
+    # Deploy to production only on tag push (v*) or when manually triggered via UI
+    if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')) || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production Ghost
+        uses: tryghost/action-deploy-theme@v3
+        with:
+          api-url: ${{ secrets.GHOST_PRODUCTION_API_URL }}
+          api-key: ${{ secrets.GHOST_PRODUCTION_API_KEY }}
           theme-name: pueblo-patriot
           file: themes/pueblo-patriot
+
