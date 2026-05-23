@@ -1,0 +1,105 @@
+{{!< default}}
+
+<div class="container">
+    
+    {{#tag}}
+    <!-- Archive Header -->
+    <header class="archive-header-card">
+        <h1 class="archive-title">{{name}} Archive</h1>
+        {{#if description}}
+        <p class="archive-description">
+            {{description}}
+        </p>
+        {{else}}
+        <p class="archive-description">
+            Explore in-depth reporting and stories covering local {{name}} affairs in Pueblo County.
+        </p>
+        {{/if}}
+    </header>
+    {{/tag}}
+
+    <div class="homepage-broadsheet">
+        
+        <!-- Left Columns: Archive Post Feed -->
+        <div class="broadsheet-column archive-posts-col" style="grid-column: span 9;">
+            <div class="archive-feed-grid">
+                {{#foreach posts}}
+                    <article class="archive-story-card {{post_class}}">
+                        {{#if feature_image}}
+                        <a class="archive-story-image-link" href="{{url}}">
+                            <img class="archive-story-image" src="{{img_url feature_image size="m"}}" alt="{{title}}" />
+                        </a>
+                        {{/if}}
+                        <div class="archive-story-content">
+                            <div class="archive-story-meta">
+                                {{#if primary_tag}}
+                                    <span class="archive-story-tag">{{primary_tag.name}}</span>
+                                    <span class="bull">&bull;</span>
+                                {{/if}}
+                                <span class="archive-story-date">{{date format="MMMM DD, YYYY"}}</span>
+                                <span class="bull">&bull;</span>
+                                <span class="archive-story-read-time">{{reading_time}}</span>
+                            </div>
+                            <h2 class="archive-story-title">
+                                <a href="{{url}}">{{title}}</a>
+                            </h2>
+                            <p class="archive-story-excerpt">
+                                {{excerpt words="22"}}...
+                            </p>
+                            <footer class="archive-story-footer">
+                                <div class="archive-story-author">
+                                    <span class="byline-prefix">By</span>
+                                    {{authors autolink="true"}}
+                                </div>
+                            </footer>
+                        </div>
+                    </article>
+                {{else}}
+                    <p class="no-posts">No articles found in this section.</p>
+                {{/foreach}}
+            </div>
+
+            <!-- Feed Pagination -->
+            {{pagination}}
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <aside class="broadsheet-column civic-sidebar-col" style="grid-column: span 3;">
+            
+            <!-- Beats Navigator Widget -->
+            <div class="sidebar-widget beats-widget">
+                <h3 class="widget-title">Civic Beats</h3>
+                <p class="widget-subtitle">Hyperlocal reporting sections covering Pueblo County</p>
+                <div class="beats-list">
+                    <a href="/tag/politics/" class="beat-tag tag-politics">
+                        <span class="beat-dot"></span> Politics
+                    </a>
+                    <a href="/tag/business/" class="beat-tag tag-business">
+                        <span class="beat-dot"></span> Business
+                    </a>
+                    <a href="/tag/community/" class="beat-tag tag-community">
+                        <span class="beat-dot"></span> Community
+                    </a>
+                    <a href="/tag/opinion/" class="beat-tag tag-opinion">
+                        <span class="beat-dot"></span> Opinion
+                    </a>
+                </div>
+            </div>
+
+            <!-- Citizen Discourse Widget -->
+            <div class="sidebar-widget discourse-widget">
+                <h3 class="widget-title">Citizen Discourse</h3>
+                <p class="widget-text">Pueblo Patriot values constructive civil dialogue. Paid members can participate in our moderated forums on city council decisions, neighborhood affairs, and development policies.</p>
+                {{#if @member}}
+                    <div class="discourse-status verified">
+                        <span class="status-icon">✔</span> Registered Citizen Voice
+                    </div>
+                {{else}}
+                    <a href="#/portal/signup" class="btn btn-primary btn-block">Join the Discourse</a>
+                {{/if}}
+            </div>
+            
+        </aside>
+    </div>
+
+</div>
