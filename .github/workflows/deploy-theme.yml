@@ -26,6 +26,41 @@ jobs:
         run: |
           npx gscan themes/pueblo-patriot
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Bootstrap Ghost and Database
+        run: |
+          nix-shell --run "just bootstrap"
+
+      - name: Start Services (Detached Mode)
+        run: |
+          nix-shell --run "process-compose up -D"
+
+      - name: Wait for Ghost CMS to boot
+        run: |
+          until curl -sI http://localhost:2368/ > /dev/null; do
+            echo "Waiting for local Ghost instance..."
+            sleep 3
+          done
+          echo "Ghost CMS is online and healthy."
+
+      - name: Seed Database with Mock Data
+        run: |
+          nix-shell --run "just seed"
+
+      - name: Run E2E Integration and Layout Tests
+        run: |
+          nix-shell --run "just test"
+
+      - name: Terminate Local Services
+        if: always()
+        run: |
+          nix-shell --run "just down"
+
+
   deploy-staging:
     name: Deploy to Staging
     needs: test-and-validate
