@@ -1,0 +1,41 @@
+name: Deploy Custom Theme
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-and-validate:
+    name: Test & Validate Theme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Gscan Validator
+        run: |
+          npx gscan themes/pueblo-patriot
+
+  deploy:
+    name: Deploy to Ghost CMS
+    needs: test-and-validate
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Package & Deploy Theme
+        uses: tryghost/action-deploy-theme@v3
+        with:
+          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
+          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          theme-name: pueblo-patriot
+          file: themes/pueblo-patriot
