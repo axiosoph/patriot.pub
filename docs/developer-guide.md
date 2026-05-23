@@ -121,13 +121,33 @@ This script:
 
 ### Testing Stripe Paid Subscriptions Locally:
 Ghost utilizes Stripe checkout events for paid tiers. To test this flow locally:
-1. Log in to your Stripe account using the pre-installed Stripe CLI inside the Nix shell:
+
+1. **Configure Credentials Automatically**: Set your Stripe test keys in your shell:
+   ```bash
+   export STRIPE_PUBLISHABLE_KEY="pk_test_..."
+   export STRIPE_SECRET_KEY="sk_test_..."
+   export STRIPE_WEBHOOK_SECRET="whsec_..."
+   ```
+   Then run the database injector script to configure Ghost:
+   ```bash
+   just configure-stripe
+   ```
+   *Note: Restart your environment (`just down && just up`) for Ghost to load these settings from the database.*
+
+2. **Authenticate with Stripe CLI**: Log in to your Stripe account using the pre-installed Stripe CLI inside the Nix shell:
    ```bash
    stripe login
    ```
-2. Run the webhook forwarder to pipe billing events directly to your local database:
+
+3. **Listen for Webhooks**: Run the webhook forwarder to pipe billing events directly to your local database:
    ```bash
    just stripe-listen
    ```
-4. Connect Stripe Test keys inside the Ghost Admin panel (`Settings → Membership → Portal settings`). You can now complete mock card checkouts using Stripe's test credit card numbers.
+
+4. **Run Automated Billing E2E Tests**: If you have populated `STRIPE_SECRET_KEY` and also specify a target Stripe test price ID:
+   ```bash
+   export STRIPE_TEST_PRICE_ID="price_..."
+   just test
+   ```
+   This will execute the automated checkout, confirm the payment intent programmatically via Stripe's API with a test card method, await the webhook sync, and verify that paid gated articles are instantly unlocked.
 
