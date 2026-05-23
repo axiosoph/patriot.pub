@@ -1,82 +1,132 @@
 {{!< default}}
 
 {{#post}}
-<article class="container-narrow {{post_class}}">
-    
-    <!-- Article Header -->
-    <header class="article-header">
-        {{#if primary_tag}}
-        <div class="article-kicker">
-            <a href="{{primary_tag.url}}">{{primary_tag.name}}</a>
-        </div>
-        {{/if}}
+<div class="container">
+    <div class="article-grid">
         
-        <h1 class="article-title">{{title}}</h1>
-        
-        {{#if custom_excerpt}}
-        <p class="article-subtitle">
-            {{custom_excerpt}}
-        </p>
-        {{/if}}
-        
-        <!-- Post Metadata -->
-        <div class="article-meta">
-            <div class="article-author">
-                <span class="byline-prefix">By</span>
-                {{authors autolink="true"}}
-            </div>
-            <span class="bull">&bull;</span>
-            <time class="article-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM DD, YYYY"}}</time>
-            <span class="bull">&bull;</span>
-            <span class="article-read-time">{{reading_time}}</span>
-        </div>
-    </header>
-
-    <!-- Feature Image -->
-    {{#if feature_image}}
-    <figure class="article-feature-image-wrapper">
-        <img class="article-feature-image" 
-            src="{{feature_image}}" 
-            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" 
-        />
-        {{#if feature_image_caption}}
-            <figcaption class="article-feature-image-caption">
-                {{feature_image_caption}}
-            </figcaption>
-        {{/if}}
-    </figure>
-    {{/if}}
-
-    <!-- Article Content -->
-    <div class="article-content">
-        {{#if access}}
-            {{content}}
-        {{else}}
-            <!-- Public Preview Text -->
-            {{content}}
-
-            <!-- Subscription Gating Paywall Card -->
-            <div class="paywall-gate">
-                <span class="paywall-kicker">Sovereign Journalism</span>
-                <h3 class="paywall-title">This investigation is reserved for Patriots</h3>
-                <p class="paywall-text">
-                    We answer to readers, not corporate advertisers. Support independent news in Pueblo and unlock full access to all articles and our archive.
+        <!-- Left / Main Column: Article Content -->
+        <article class="article-main {{post_class}}">
+            
+            <!-- Article Header -->
+            <header class="article-header">
+                {{#if primary_tag}}
+                <div class="article-kicker">
+                    <a href="{{primary_tag.url}}">{{primary_tag.name}}</a>
+                </div>
+                {{/if}}
+                
+                <h1 class="article-title">{{title}}</h1>
+                
+                {{#if custom_excerpt}}
+                <p class="article-subtitle">
+                    {{custom_excerpt}}
                 </p>
-                <div class="paywall-actions">
-                    <a href="#/portal/signup" class="btn btn-primary paywall-btn">Join the Patriot Tiers</a>
-                    <a href="#/portal/signin" class="btn btn-secondary paywall-btn">Sign In</a>
+                {{/if}}
+                
+                <!-- Post Metadata -->
+                <div class="article-meta">
+                    <div class="article-author">
+                        <span class="byline-prefix">By</span>
+                        {{authors autolink="true"}}
+                    </div>
+                    <span class="bull">&bull;</span>
+                    <time class="article-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM DD, YYYY"}}</time>
+                    <span class="bull">&bull;</span>
+                    <span class="article-read-time">{{reading_time}}</span>
+                </div>
+            </header>
+
+            <!-- Feature Image -->
+            {{#if feature_image}}
+            <figure class="article-feature-image-wrapper">
+                <img class="article-feature-image" 
+                    src="{{feature_image}}" 
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" 
+                />
+                {{#if feature_image_caption}}
+                    <figcaption class="article-feature-image-caption">
+                        {{feature_image_caption}}
+                    </figcaption>
+                {{/if}}
+            </figure>
+            {{/if}}
+
+            <!-- Article Content -->
+            <div class="article-content">
+                {{#if access}}
+                    {{content}}
+                {{else}}
+                    <!-- Public Preview Text -->
+                    {{content}}
+
+                    <!-- Subscription Gating Paywall Card -->
+                    <div class="paywall-gate">
+                        <span class="paywall-kicker">Sovereign Journalism</span>
+                        <h3 class="paywall-title">This investigation is reserved for Patriots</h3>
+                        <p class="paywall-text">
+                            We answer to readers, not corporate advertisers. Support independent news in Pueblo and unlock full access to all articles and our archive.
+                        </p>
+                        <div class="paywall-actions">
+                            <a href="#/portal/signup" class="btn btn-primary paywall-btn">Join the Patriot Tiers</a>
+                            <a href="#/portal/signin" class="btn btn-secondary paywall-btn">Sign In</a>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+
+            <!-- Article Footer / Comments -->
+            {{#if comments}}
+            <section class="article-comments">
+                <h3 class="comments-title">Citizen Discourse</h3>
+                {{comments title="Reader Comments" count=true mode="auto"}}
+            </section>
+            {{/if}}
+
+        </article>
+
+        <!-- Right Column: Sidebar (Related News & Newsletter) -->
+        <aside class="article-sidebar">
+            
+            <!-- Related Stories -->
+            <div class="sidebar-widget related-stories-widget">
+                <h3 class="widget-title">Related Stories</h3>
+                <div class="related-stories-list">
+                    {{#get "posts" limit="3" filter="id:-{{id}}" include="authors,tags"}}
+                        {{#foreach posts}}
+                        <article class="related-story-card">
+                            {{#if feature_image}}
+                            <a class="related-story-image-link" href="{{url}}">
+                                <img class="related-story-image" src="{{img_url feature_image size="xs"}}" alt="{{title}}" />
+                            </a>
+                            {{/if}}
+                            <div class="related-story-content">
+                                <h4 class="related-story-title">
+                                    <a href="{{url}}">{{title}}</a>
+                                </h4>
+                                <p class="related-story-excerpt">
+                                    {{excerpt words="10"}}...
+                                </p>
+                            </div>
+                        </article>
+                        {{else}}
+                        <p class="no-stories-msg">No related coverage found.</p>
+                        {{/foreach}}
+                    {{/get}}
                 </div>
             </div>
-        {{/if}}
+
+            <!-- Secondary Newsletter Signup -->
+            <div class="sidebar-widget newsletter-widget">
+                <h3 class="widget-title">Patriot Newsletter</h3>
+                <p class="widget-text">Get independent, investigative reports sent directly to your inbox daily.</p>
+                <form class="signup-form sidebar-signup-form" data-members-form="subscribe">
+                    <input data-members-email type="email" placeholder="your@email.com" required autocomplete="email" aria-label="Email address" />
+                    <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+                </form>
+            </div>
+
+        </aside>
+
     </div>
-
-    <!-- Article Footer / Comments -->
-    {{#if comments}}
-    <section class="article-comments">
-        <h3 class="comments-title">Citizen Discourse</h3>
-        {{comments title="Reader Comments" count=true mode="auto"}}
-    </section>
-    {{/if}}
-
-</article>
+</div>
 {{/post}}
