@@ -100,3 +100,35 @@ Then start fresh with:
 ```bash
 just bootstrap
 ```
+
+---
+
+## 7. Automated Testing & Verification
+
+We provide automated E2E integration tests to ensure that templates, registration handlers, SMTP interception, and gated member access remain correct.
+
+### Running Automated E2E Tests:
+Ensure your environment is running (`just up`), then execute:
+```bash
+just test
+```
+This script:
+1. Validates that anonymous visitors are blocked by the paywall on members-only posts.
+2. Dispatches a magic login link request via Ghost's native members API.
+3. Accesses the local Mailpit REST API to extract the magic link token.
+4. Requests the magic link to authenticate the user session.
+5. Captures session cookies and verifies they grant full access to gated articles, bypassing the paywall overlay.
+
+### Testing Stripe Paid Subscriptions Locally:
+Ghost utilizes Stripe checkout events for paid tiers. To test this flow locally:
+1. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) on your machine.
+2. Log in to your Stripe account using:
+   ```bash
+   stripe login
+   ```
+3. Run the webhook forwarder to pipe billing events directly to your local database:
+   ```bash
+   just stripe-listen
+   ```
+4. Connect Stripe Test keys inside the Ghost Admin panel (`Settings → Membership → Portal settings`). You can now complete mock card checkouts using Stripe's test credit card numbers.
+

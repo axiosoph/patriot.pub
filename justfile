@@ -31,3 +31,12 @@ clean:
     rm -rf .nix-data/
     rm -rf ghost-app/
     @echo "Clean complete. Run 'just bootstrap' to start over."
+
+# Run automated E2E integration tests
+test:
+    @node --test tests/subscriber-flow.test.js
+
+# Forward Stripe webhooks to the local Ghost instance for billing tests
+stripe-listen:
+    @stripe listen --forward-to http://localhost:2368/members/webhooks/stripe/
+
