@@ -13,6 +13,7 @@ pkgs.mkShell {
     pkgs.mailpit
     pkgs.process-compose
     pkgs.python3Packages.setuptools
+    pkgs.just
   ];
 
   shellHook = ''
@@ -49,10 +50,10 @@ pkgs.mkShell {
     echo "  PUEBLO PATRIOT DEVELOPMENT ENVIRONMENT (NIX SHELL)"
     echo "=========================================================="
     echo "  Available Commands:"
-    echo "    make bootstrap - Initialize local DB and install Ghost"
-    echo "    make up        - Start MySQL, Mailpit, and Ghost CMS"
-    echo "    make down      - Stop all background processes"
-    echo "    mysql-local    - Connect directly to the local MySQL"
+    echo "    just bootstrap  - Initialize local DB and install Ghost"
+    echo "    just up         - Start MySQL, Mailpit, and Ghost CMS"
+    echo "    just down       - Stop all background processes"
+    echo "    mysql-local     - Connect directly to the local MySQL"
     echo "=========================================================="
     echo "  Services:"
     echo "    - Ghost CMS:     http://localhost:2368"
