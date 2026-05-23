@@ -118,6 +118,7 @@ if (fs.existsSync(path)) {
 echo "Registering custom theme 'pueblo-patriot' inside Ghost content path..."
 mkdir -p themes/pueblo-patriot
 mkdir -p ghost-app/content/themes
-ln -sfN ../../../themes/pueblo-patriot ghost-app/content/themes/pueblo-patriot
+rm -rf ghost-app/content/themes/pueblo-patriot
+ln -sf ../../../themes/pueblo-patriot ghost-app/content/themes/pueblo-patriot
 
 echo "=== [SRE] Bootstrapping Complete. Ready to start services! ==="
