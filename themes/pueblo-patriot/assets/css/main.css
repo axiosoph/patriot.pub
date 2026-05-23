@@ -1349,6 +1349,28 @@ main {
 
 /* ── Responsive Navigation for Mobile ──────────────────────────────────── */
 @media (max-width: 768px) {
+  .header-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) 0;
+  }
+
+  .header-tagline {
+    display: none;
+  }
+
+  .header-meta span {
+    display: none;
+  }
+
+  .header-meta {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
   .menu-toggle {
     display: block;
     background: none;
