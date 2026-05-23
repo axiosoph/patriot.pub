@@ -205,6 +205,77 @@ const mockPosts = [
   }
 ];
 
+const mockPages = [
+  {
+    title: 'About Our Mission',
+    slug: 'about',
+    custom_excerpt: 'The Pueblo Patriot: Reclaiming local journalism through independent, non-corporate reporting.',
+    html: `
+      <p>The Pueblo Patriot was founded in 2026 to address a critical deficit in southern Colorado: the decline of deep, structural, local investigative reporting. As corporate media chains consolidate and hollow out local newsrooms, communities like Pueblo lose the independent scrutiny required to keep public and private power accountable.</p>
+      <h2>Our Funding Model</h2>
+      <p>We believe that when a publication relies on programmatic ad networks, the reader is no longer the customer—they are the product. To keep our reporting pristine and sovereign, the Pueblo Patriot is funded entirely by its readers. We carry no commercial advertisements and do not track or sell your browsing history.</p>
+      <h2>Editorial Independence</h2>
+      <p>Our editorial decisions are made solely by our journalists. No donor, subscriber, or corporate entity has any influence over our coverage. We report the verifiable truth, regardless of where the facts lead.</p>
+    `
+  },
+  {
+    title: 'Ethics Statement',
+    slug: 'ethics',
+    custom_excerpt: 'Our commitment to accuracy, independence, and transparency in journalism.',
+    html: `
+      <p>The Pueblo Patriot adheres to the highest standards of journalistic integrity. Our mission is to provide Pueblo with accurate, balanced, and independent reporting.</p>
+      <h2>Accuracy and Verification</h2>
+      <p>We verify all facts before publication. We seek primary sources and documents rather than relying on hearsay or third-party reports. When we make errors, we correct them promptly and transparently.</p>
+      <h2>Conflicts of Interest</h2>
+      <p>Our writers and editors do not accept gifts, travel, or compensation from any source that could compromise their objectivity. Any personal or financial relationships relevant to a story will be fully disclosed.</p>
+      <h2>Sourcing and Confidentiality</h2>
+      <p>We prioritize on-the-record sources. When anonymous sources are necessary to protect individuals from retaliation, we verify their identity and motives, and we explain to our readers why anonymity was granted.</p>
+    `
+  },
+  {
+    title: 'Privacy Policy',
+    slug: 'privacy',
+    custom_excerpt: 'We respect your privacy. No tracking, no ads, no compromises.',
+    html: `
+      <p>Your privacy is fundamental to our mission. Unlike modern media websites, the Pueblo Patriot does not run third-party tracking scripts, cookies, or telemetry to build advertising profiles.</p>
+      <h2>Information We Collect</h2>
+      <p>We only collect the information necessary to manage your subscription. This includes your email address and payment details (processed securely via Stripe). We never store your credit card details on our servers.</p>
+      <h2>No Third-Party Sharing</h2>
+      <p>We do not sell, rent, or trade your personal information with third parties. Your reading history is private to you and is not analyzed for marketing purposes.</p>
+    `
+  },
+  {
+    title: 'Terms of Service',
+    slug: 'terms',
+    custom_excerpt: 'The guidelines governing your use of the Pueblo Patriot.',
+    html: `
+      <p>Welcome to the Pueblo Patriot. By accessing or subscribing to our services, you agree to comply with the following terms.</p>
+      <h2>Intellectual Property</h2>
+      <p>All content published by the Pueblo Patriot is protected by copyright. You may share short excerpts with attribution, but reproducing full articles without permission is prohibited.</p>
+      <h2>Subscription Accounts</h2>
+      <p>You are responsible for maintaining the security of your subscription account. Subscriptions are for individual use and may not be shared across multiple households.</p>
+      <h2>Governing Law</h2>
+      <p>These terms are governed by the laws of the State of Colorado and the United States.</p>
+    `
+  },
+  {
+    title: 'Submit a CORA / Tip',
+    slug: 'tips',
+    custom_excerpt: 'How to safely share documents, stories, and public records requests with our newsroom.',
+    html: `
+      <p>We rely on whistleblowers, public employees, and community members to bring important stories to light. If you have evidence of government waste, corporate corruption, or public safety issues in Pueblo County, we want to hear from you.</p>
+      <h2>How to Submit a Tip</h2>
+      <p>To protect your identity, we recommend the following methods when sharing sensitive information:</p>
+      <ul>
+        <li><strong>Email:</strong> Contact us at <a href="mailto:tips@pueblopatriot.com">tips@pueblopatriot.com</a>. For added security, use a temporary or non-work email account.</li>
+        <li><strong>Physical Mail:</strong> Send documents or digital media (USBs) to our mailing address (available upon request). Do not include a return address if you wish to remain anonymous.</li>
+      </ul>
+      <h2>Colorado Open Records Act (CORA)</h2>
+      <p>We frequently file public records requests to hold local agencies accountable. If you have guidance on specific public files, communications, or databases that should be requested, please let our editorial team know.</p>
+    `
+  }
+];
+
 // Output SQL script
 console.log('-- Pueblo Patriot Mock Posts Seeding SQL Script --');
 console.log('USE patriot_dev;');
@@ -219,6 +290,11 @@ const mockSlugs = mockPosts.map(p => `'${p.slug}'`).join(', ');
 console.log(`DELETE FROM posts WHERE slug IN (${mockSlugs});`);
 console.log(`DELETE FROM posts_authors WHERE post_id IN (SELECT id FROM posts WHERE slug IN (${mockSlugs}));`);
 console.log(`DELETE FROM posts_tags WHERE post_id IN (SELECT id FROM posts WHERE slug IN (${mockSlugs}));`);
+
+const pageSlugs = mockPages.map(p => `'${p.slug}'`).join(', ');
+console.log(`DELETE FROM posts WHERE slug IN (${pageSlugs});`);
+console.log(`DELETE FROM posts_authors WHERE post_id IN (SELECT id FROM posts WHERE slug IN (${pageSlugs}));`);
+
 
 // Insert Tags
 console.log('\n-- Inserting Custom Tags --');
@@ -283,6 +359,51 @@ INSERT INTO posts (
   // Link Post to Author
   const postAuthorId = makeGhostId();
   console.log(`INSERT INTO posts_authors (id, post_id, author_id, sort_order) VALUES ('${postAuthorId}', '${postId}', @author_id, 0);`);
+  console.log('-- ------------------------------------------------');
+});
+
+// Insert Pages
+console.log('\n-- Inserting Mock Pages --');
+mockPages.forEach((p, idx) => {
+  const pageId = makeGhostId();
+  const pageUuid = makeUuid();
+  const dateExpr = `DATE_SUB(NOW(), INTERVAL ${idx + 20} DAY)`;
+  const cleanTitle = p.title.replace(/'/g, "''");
+  const cleanExcerpt = p.custom_excerpt.replace(/'/g, "''");
+  const cleanHtml = p.html.trim().replace(/'/g, "''");
+  const cleanPlainText = p.html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 400).replace(/'/g, "''") + '...';
+
+  console.log(`
+INSERT INTO posts (
+  id, uuid, title, slug, html, plaintext, feature_image, featured, type, status, visibility,
+  created_at, updated_at, published_at, published_by, custom_excerpt, comment_id, show_title_and_feature_image,
+  email_recipient_filter
+) VALUES (
+  '${pageId}',
+  '${pageUuid}',
+  '${cleanTitle}',
+  '${p.slug}',
+  '${cleanHtml}',
+  '${cleanPlainText}',
+  NULL,
+  0,
+  'page',
+  'published',
+  'public',
+  ${dateExpr},
+  ${dateExpr},
+  ${dateExpr},
+  @author_id,
+  '${cleanExcerpt}',
+  '${pageId}',
+  1,
+  'all'
+);
+  `.trim());
+
+  // Link Page to Author
+  const pageAuthorId = makeGhostId();
+  console.log(`INSERT INTO posts_authors (id, post_id, author_id, sort_order) VALUES ('${pageAuthorId}', '${pageId}', @author_id, 0);`);
   console.log('-- ------------------------------------------------');
 });
 
