@@ -1,4 +1,12 @@
-{ pkgs ? import <nixpkgs> {} }:
+let
+  # Pin nixpkgs to a specific evaluated unstable commit (May 2026)
+  pinnedNixpkgs = builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/29916453413845e54a65b8a1cf996842300cd299.tar.gz";
+    sha256 = "10zg0da9mswglfq40204s1fh98sgc3rsbj5kvlkp5i5rgwjlm7q2";
+  };
+  defaultPkgs = import pinnedNixpkgs {};
+in
+{ pkgs ? defaultPkgs }:
 
 let
   # Pin Node.js to version 22 (LTS) which is required by Ghost 6.x
@@ -9,7 +17,7 @@ pkgs.mkShell {
 
   buildInputs = [
     node
-    pkgs.mysql80
+    pkgs.mysql84
     pkgs.mailpit
     pkgs.process-compose
     pkgs.python3Packages.setuptools
