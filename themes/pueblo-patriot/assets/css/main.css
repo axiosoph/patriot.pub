@@ -241,53 +241,40 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1.2rem;
+  padding: 0.65rem 1.4rem;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   border-radius: 0;
-  border: 2px solid var(--color-ink);
-  box-shadow: 3px 3px 0 var(--color-ink);
+  border: 1px solid var(--color-ink);
   cursor: pointer;
-  transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease, background-color var(--transition-fast) ease, color var(--transition-fast) ease;
-}
-
-.btn:hover:not(:disabled) {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--color-brick);
-}
-
-.btn:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--color-ink);
+  transition: all var(--transition-fast) ease;
 }
 
 .btn:disabled {
-  background-color: var(--color-border);
-  border-color: var(--color-border);
-  color: var(--color-ink-muted);
-  box-shadow: none;
+  background-color: var(--color-border) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-ink-muted) !important;
   cursor: not-allowed;
-  transform: none;
 }
 
 .btn-primary {
-  background-color: var(--color-brick);
+  background-color: var(--color-ink);
   color: var(--color-paper);
-  border-color: var(--color-ink);
+  border: 1px solid var(--color-ink);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: transparent;
+  color: var(--color-ink);
 }
 
 .btn-secondary {
-  background-color: var(--color-paper);
+  background-color: transparent;
   color: var(--color-ink);
-  border-color: var(--color-ink);
+  border: 1px solid var(--color-ink);
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -559,11 +546,11 @@ main {
 .newsletter-cta {
   background-color: var(--color-sky);
   color: var(--color-paper);
-  border-radius: 8px;
+  border-radius: 0;
+  border: 1px solid var(--color-border);
   padding: var(--space-xl) var(--space-lg);
   margin: var(--space-xl) 0;
   text-align: center;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .newsletter-cta h3 {
@@ -597,9 +584,9 @@ main {
 .signup-form input[type="email"] {
   flex-grow: 1;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.12);
   color: var(--color-paper);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -620,36 +607,41 @@ main {
   background-color: var(--color-sun);
   color: var(--color-ink);
   font-weight: 700;
-  border: 2px solid var(--color-ink);
+  border: 1px solid var(--color-sun);
   border-radius: 0;
   padding: 0.75rem 1.5rem;
   font-family: var(--font-sans);
   font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  box-shadow: 3px 3px 0 var(--color-ink);
+  letter-spacing: 0.12em;
   cursor: pointer;
-  transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease, background-color var(--transition-fast) ease;
+  transition: all var(--transition-fast) ease;
 }
 
 .signup-form button:hover:not(:disabled) {
-  background-color: #e5b352;
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--color-brick);
-}
-
-.signup-form button:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--color-ink);
+  background-color: transparent;
+  color: var(--color-sun);
+  border-color: var(--color-sun);
 }
 
 .signup-form button:disabled {
-  background-color: var(--color-border);
-  border-color: var(--color-border);
-  color: var(--color-ink-muted);
-  box-shadow: none;
+  background-color: var(--color-border) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-ink-muted) !important;
   cursor: not-allowed;
-  transform: none;
+}
+
+/* Specific styling for the form button inside a dark newsletter container */
+.newsletter-cta .signup-form button {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  border: 1px solid var(--color-paper);
+}
+
+.newsletter-cta .signup-form button:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--color-paper);
+  border-color: var(--color-paper);
 }
 
 .success-message {
@@ -1567,9 +1559,9 @@ main {
 }
 
 .focus-toggle-btn {
-  background: var(--color-paper);
-  border: 1.5px solid var(--color-ink);
-  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1577,25 +1569,23 @@ main {
   letter-spacing: 0.08em;
   padding: 0.35rem 0.75rem;
   border-radius: 0;
-  box-shadow: 2px 2px 0 var(--color-ink);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease, background-color var(--transition-fast) ease, color var(--transition-fast) ease;
+  transition: all var(--transition-fast) ease;
 }
 
 .focus-toggle-btn:hover:not(:disabled) {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 var(--color-brick);
   border-color: var(--color-ink);
   color: var(--color-ink);
-  background-color: var(--color-paper);
+  background-color: rgba(22, 24, 29, 0.03);
 }
 
-.focus-toggle-btn:active:not(:disabled) {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--color-ink);
+@media (prefers-color-scheme: dark) {
+  .focus-toggle-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
 }
 
 @media (max-width: 900px) {
