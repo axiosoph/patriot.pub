@@ -28,14 +28,28 @@
 
         <!-- Navigation Bar -->
         <nav class="header-nav">
+            <!-- Mobile Menu Toggle Button -->
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="menu-toggle-icon"></span>
+            </button>
+
             {{navigation}}
             
             <div class="nav-actions">
                 {{#if @member}}
-                    <a href="#/portal/account" class="btn btn-secondary">Account</a>
+                    <a href="#/portal/account" class="btn btn-secondary header-btn-signin">Account</a>
                 {{else}}
-                    <a href="#/portal/signin" class="btn btn-secondary">Sign In</a>
-                    <a href="#/portal/signup" class="btn btn-primary">Subscribe</a>
+                    <a href="#/portal/signin" class="btn btn-secondary header-btn-signin">Sign In</a>
+                    <a href="#/portal/signup" class="btn btn-primary header-btn-subscribe">Subscribe</a>
+                {{/if}}
+            </div>
+
+            <!-- Collapsible Mobile Menu Drawer Actions -->
+            <div class="mobile-drawer-actions">
+                {{#if @member}}
+                    <a href="#/portal/account" class="btn btn-secondary btn-block">Account Details</a>
+                {{else}}
+                    <a href="#/portal/signin" class="btn btn-secondary btn-block">Sign In to Account</a>
                 {{/if}}
             </div>
         </nav>
@@ -51,6 +65,16 @@
         const dateEl = document.getElementById("current-date");
         if (dateEl) {
             dateEl.textContent = `Pueblo, CO · ${dateStr}`;
+        }
+
+        // Mobile Hamburger Menu Toggler
+        const nav = document.querySelector(".header-nav");
+        const toggle = document.querySelector(".menu-toggle");
+        if (toggle && nav) {
+            toggle.addEventListener("click", () => {
+                const isOpen = nav.classList.toggle("menu-open");
+                toggle.setAttribute("aria-expanded", isOpen);
+            });
         }
     });
 </script>
