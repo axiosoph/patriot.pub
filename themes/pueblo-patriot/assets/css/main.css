@@ -757,8 +757,10 @@ main {
   padding-right: var(--space-lg);
 }
 
-/* Column 1: Secondary Stories (Left Column) */
+/* Column 1: County Dispatch (Left Column) */
 .secondary-col {
+  grid-column: 1;
+  grid-row: 1;
   gap: var(--space-md);
 }
 
@@ -840,7 +842,8 @@ main {
 
 /* Column 2: Lead Story (Center Column) */
 .lead-story-col {
-  /* Takes 6fr */
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .lead-story-card {
@@ -947,6 +950,8 @@ main {
 
 /* Column 3: Civic Sidebar (Right Column) */
 .civic-sidebar-col {
+  grid-column: 3;
+  grid-row: 1;
   gap: var(--space-lg);
 }
 
@@ -1146,13 +1151,28 @@ main {
   .homepage-broadsheet {
     grid-template-columns: 8fr 4fr; /* Center + Right columns */
   }
-  .homepage-broadsheet > .broadsheet-column.secondary-col {
-    grid-column: span 2;
-    border-right: none;
+  .homepage-broadsheet > .broadsheet-column.lead-story-col {
+    grid-column: 1;
+    grid-row: 1;
     border-bottom: 1px solid var(--color-border);
-    padding-right: 0;
     padding-bottom: var(--space-md);
     margin-bottom: var(--space-md);
+  }
+  .homepage-broadsheet > .broadsheet-column.civic-sidebar-col {
+    grid-column: 2;
+    grid-row: 1;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  .homepage-broadsheet > .broadsheet-column.secondary-col {
+    grid-column: span 2;
+    grid-row: 2;
+    border-right: none;
+    border-bottom: none;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
     flex-direction: row;
     gap: var(--space-lg);
   }
@@ -1177,6 +1197,7 @@ main {
   }
   .homepage-broadsheet > .broadsheet-column {
     grid-column: span 1 !important;
+    grid-row: auto !important;
     border-right: none !important;
     padding-right: 0 !important;
     border-bottom: 1px solid var(--color-border);
@@ -1188,6 +1209,8 @@ main {
   }
   .homepage-broadsheet > .broadsheet-column.secondary-col {
     flex-direction: column;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-lg);
   }
   .secondary-story-card {
     border-right: none;

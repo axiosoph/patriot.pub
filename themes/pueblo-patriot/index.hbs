@@ -5,34 +5,6 @@
     <!-- Top Editorial Section (Three-Column Broadsheet Layout) -->
     <div class="homepage-broadsheet">
         
-        <!-- Left Column: Secondary Coverage -->
-        <div class="broadsheet-column secondary-col">
-            <h3 class="column-title">Secondary Coverage</h3>
-            {{#foreach posts from="2" to="4"}}
-                <article class="secondary-story-card {{post_class}}">
-                    <div class="story-meta">
-                        {{#if primary_tag}}
-                            {{#primary_tag}}
-                                <a href="{{url}}" class="story-tag">{{name}}</a>
-                            {{/primary_tag}}
-                            <span class="bull">&bull;</span>
-                        {{/if}}
-                        <span class="story-date">{{date format="MMM DD"}}</span>
-                    </div>
-                    <h4 class="story-title">
-                        <a href="{{url}}">{{title}}</a>
-                    </h4>
-                    <p class="story-excerpt">
-                        {{excerpt words="20"}}...
-                    </p>
-                </article>
-            {{else}}
-                <div class="no-posts-small">
-                    No secondary stories available.
-                </div>
-            {{/foreach}}
-        </div>
-        
         <!-- Center Column: Lead Story -->
         <div class="broadsheet-column lead-story-col">
             {{#foreach posts limit="1"}}
@@ -83,6 +55,34 @@
             {{else}}
                 <div class="no-posts">
                     Constructing the press. Articles are being queued for publication.
+                </div>
+            {{/foreach}}
+        </div>
+
+        <!-- Left Column: County Dispatch -->
+        <div class="broadsheet-column secondary-col">
+            <h3 class="column-title">County Dispatch</h3>
+            {{#foreach posts from="2" to="4"}}
+                <article class="secondary-story-card {{post_class}}">
+                    <div class="story-meta">
+                        {{#if primary_tag}}
+                            {{#primary_tag}}
+                                <a href="{{url}}" class="story-tag">{{name}}</a>
+                            {{/primary_tag}}
+                            <span class="bull">&bull;</span>
+                        {{/if}}
+                        <span class="story-date">{{date format="MMM DD"}}</span>
+                    </div>
+                    <h4 class="story-title">
+                        <a href="{{url}}">{{title}}</a>
+                    </h4>
+                    <p class="story-excerpt">
+                        {{excerpt words="20"}}...
+                    </p>
+                </article>
+            {{else}}
+                <div class="no-posts-small">
+                    No secondary stories available.
                 </div>
             {{/foreach}}
         </div>
