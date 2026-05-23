@@ -494,26 +494,35 @@ main {
 .article-content blockquote {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.45rem;
-  line-height: 1.5;
+  font-size: 1.5rem;
+  line-height: 1.4;
   color: var(--color-brick);
-  border-left: 4px solid var(--color-brick);
-  padding-left: var(--space-md);
-  margin: var(--space-xl) 0;
+  border-top: 3px double var(--color-brick);
+  border-bottom: 3px double var(--color-brick);
+  border-left: none;
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-xl) auto;
+  max-width: 90%;
+  text-align: center;
   position: relative;
-  z-index: 1;
 }
 
-.article-content blockquote::before {
-  content: "“";
+.article-subtitle {
   font-family: var(--font-serif);
-  font-size: 6rem;
-  line-height: 1;
-  color: rgba(176, 71, 60, 0.12); /* Semi-transparent brick accent */
-  position: absolute;
-  left: -0.5rem;
-  top: -1.8rem;
-  z-index: -1;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-md);
+  font-style: italic;
+  text-align: center;
+}
+
+.article-feature-image-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  text-align: center;
+  margin-top: var(--space-sm);
 }
 
 /* ── Newsletter CTA Component ──────────────────────────────────────────── */
