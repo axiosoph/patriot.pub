@@ -106,3 +106,20 @@ Our dark theme is implemented by re-mapping core CSS variables inside a media qu
 }
 ```
 This ensures the entire layout updates seamlessly to dark mode while remaining compliant with contrast accessibility standards.
+
+---
+
+## 6. Responsive Layouts & Mobile Navigation
+
+To preserve visual elegance and navigational clarity on smaller viewports, we enforce the following responsive design rules:
+
+1. **Header Congestion Minimization**:
+   - On screen widths below `768px`, secondary actions (e.g., "Sign In" or "Account") are suppressed from the primary sticky header row.
+   - Only the CSS-animated hamburger toggle, the centered brand logo, and the primary "Subscribe" CTA button are displayed in the header row.
+2. **Mobile Collapsible Drawer**:
+   - The primary navigation links and secondary actions are wrapped inside a collapsible drawer that expands vertically below the header.
+   - The drawer uses native transitions to transition open and closed when the `.menu-open` class is applied to the `.header-nav` container.
+   - A block-based vertical expansion models the print newspaper metaphor (pushing body content down rather than utilizing an absolute overlay).
+3. **Animated Hamburger Icon**:
+   - The mobile menu toggle button utilizes three CSS-drawn bars that transition into an "X" when the drawer is open.
+   - The toggle is hidden on screens wider than `768px` (`display: none`).
