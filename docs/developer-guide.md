@@ -108,10 +108,19 @@ just bootstrap
 We provide automated E2E integration tests to ensure that templates, registration handlers, SMTP interception, and gated member access remain correct.
 
 ### Running Automated E2E Tests:
-Ensure your environment is running (`just up`), then execute:
-```bash
-just test
-```
+Since the process orchestrator (`just up`) runs in the foreground, you must execute the test suite from a separate shell session:
+
+1. **Terminal 1 (Host Services)**: Ensure the local services are running:
+   ```bash
+   nix-shell
+   just up
+   ```
+
+2. **Terminal 2 (Test Runner)**: Open a second terminal window in the project directory, enter the Nix shell, and run the test suite:
+   ```bash
+   nix-shell
+   just test
+   ```
 This script:
 1. Validates that anonymous visitors are blocked by the paywall on members-only posts.
 2. Dispatches a magic login link request via Ghost's native members API.
