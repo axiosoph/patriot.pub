@@ -1519,39 +1519,41 @@ main {
 }
 
 .article-grid {
-  display: grid;
-  grid-template-columns: 1fr minmax(0, var(--container-narrow)) 1fr;
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
-  align-items: start;
+  position: relative;
+  max-width: var(--container-width);
+  margin: var(--space-lg) auto 0;
 }
 
 .article-main {
-  grid-column: 2;
-  border-right: none;
-  padding-right: 0;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
   transition: all var(--transition-normal);
 }
 
-/* Sidebar layout for screens wider than 1200px (Large Desktop) */
-@media (min-width: 1201px) {
+/* Sidebar layout for screens wider than 1380px (Large Desktop) */
+@media (min-width: 1380px) {
   .article-sidebar {
-    grid-column: 3;
-    width: 220px;
-    margin-left: var(--space-md);
+    position: absolute;
+    top: 0;
+    left: calc(50% + 370px + var(--space-lg));
+    width: 280px;
     border-left: 1px solid var(--color-border);
     padding-left: var(--space-md);
     opacity: 1;
-    transition: opacity var(--transition-normal);
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+    transform: translateX(0);
   }
 
   .article-grid.focus-active .article-sidebar {
+    opacity: 0;
+    transform: translateX(30px);
+    pointer-events: none;
     display: none;
   }
 }
 
-/* Sidebar layout for viewports between 901px and 1200px (Medium Desktop/Tablet) */
-@media (min-width: 901px) and (max-width: 1200px) {
+/* Sidebar layout for viewports between 901px and 1379px (Medium Desktop/Tablet) */
+@media (min-width: 901px) and (max-width: 1379px) {
   .article-sidebar {
     position: fixed;
     top: 0;
@@ -1579,20 +1581,11 @@ main {
 
 /* Sidebar layout for mobile (under 900px) */
 @media (max-width: 900px) {
-  .article-grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .article-main {
-    width: 100%;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--space-lg);
-    margin-bottom: var(--space-lg);
-  }
-
   .article-sidebar {
     width: 100%;
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-lg);
   }
 }
 
