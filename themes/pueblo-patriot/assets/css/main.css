@@ -163,12 +163,12 @@ main {
 .masthead-the {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.6em;
-  color: var(--color-ink-muted);
-  text-indent: 0.6em;
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+  color: var(--color-brick); /* Soft brick red for subtle accent contrast */
   text-transform: uppercase;
-  margin-bottom: -0.25rem;
+  margin-bottom: 0.5rem;
+  text-indent: 0.5em;
 }
 
 .masthead-title {
@@ -178,7 +178,7 @@ main {
   letter-spacing: -0.02em;
   color: var(--color-sky);
   text-transform: uppercase;
-  line-height: 0.9;
+  line-height: 1.0; /* Restored line height to prevent overlap */
   text-shadow: 1px 1px 0px var(--color-paper), 2px 2px 0px var(--color-border);
 }
 
@@ -204,20 +204,21 @@ main {
   margin-top: var(--space-sm);
 }
 
-.nav-links {
+/* Ghost outputs the '.nav' class for navigation menus */
+.nav {
   list-style: none;
   display: flex;
   gap: var(--space-md);
 }
 
-.nav-links a {
+.nav a {
   color: var(--color-ink);
   padding: 0.25rem 0;
   border-bottom: 2px solid transparent;
   transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.nav-links a:hover, .nav-links .nav-current a {
+.nav a:hover, .nav .nav-current a {
   color: var(--color-sky);
   border-color: var(--color-sky);
 }
