@@ -2,7 +2,12 @@
 
 {{#post}}
 <div class="container">
-    <div class="article-grid">
+    <div class="article-controls">
+        <button class="focus-toggle-btn" id="focus-toggle" aria-label="Toggle Focus Mode">
+            <span class="focus-icon">◫</span> <span class="focus-text">Show Sidebar</span>
+        </button>
+    </div>
+    <div class="article-grid focus-active" id="article-grid-container">
         
         <!-- Left / Main Column: Article Content -->
         <article class="article-main {{post_class}}">
@@ -135,4 +140,36 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("article-grid-container");
+        const toggleBtn = document.getElementById("focus-toggle");
+        
+        if (grid && toggleBtn) {
+            // Restore reader preference if previously saved
+            const focusPreference = localStorage.getItem("patriot-focus-mode");
+            
+            // If they saved "expanded", we remove the focus-active class
+            if (focusPreference === "expanded") {
+                grid.classList.remove("focus-active");
+                const textSpan = toggleBtn.querySelector(".focus-text");
+                if (textSpan) textSpan.textContent = "Focus Mode";
+            }
+            
+            toggleBtn.addEventListener("click", () => {
+                const isFocused = grid.classList.toggle("focus-active");
+                const textSpan = toggleBtn.querySelector(".focus-text");
+                
+                if (isFocused) {
+                    localStorage.setItem("patriot-focus-mode", "focused");
+                    if (textSpan) textSpan.textContent = "Show Sidebar";
+                } else {
+                    localStorage.setItem("patriot-focus-mode", "expanded");
+                    if (textSpan) textSpan.textContent = "Focus Mode";
+                }
+            });
+        }
+    });
+</script>
 {{/post}}
