@@ -42,15 +42,24 @@ We use self-hosted/CDN Google Fonts selected to emulate the vintage print newspa
 
 ## 3. Structural Rules & Broadsheet Grids
 
-To mimic a physical print broadsheet, we favor vertical/horizontal border rules over soft shadows or rounded panels:
+To mimic a physical print broadsheet, we enforce a **flat column layout** separated by explicit typographical borders:
 
-1. **Editorial Divider Rules**:
-   - Sections are separated by `1px solid var(--color-border)` lines.
-   - The primary logo and navigation bar are bound by double-line border rules (`3px double var(--color-ink)`).
-2. **Layout Grid**:
-   - The Home Page uses a `12-column` CSS Grid with a gap of `2rem` (`--space-lg`).
-   - The **Lead Story** spans `8 columns` on large screens, while the **Civic Sidebar** occupies `4 columns`.
-   - Responsive breakpoints wrap columns into vertical listings at `900px` and `600px` viewports.
+1. **The Broadsheet Rule (No Cards)**:
+   - Articles do not use background card containers, rounded corners, or modern drop-shadows. They rest directly on the `--color-paper` background canvas.
+   - This prevents the site from looking like a generic software blog or SaaS landing page, grounding it in editorial authority.
+2. **Editorial Divider Rules**:
+   - Primary homepage columns are separated by vertical divider rules (`1px solid var(--color-border)`).
+   - Major structural sections (the header, the sidebar, the sponsor strip, and the latest news feed) are separated by horizontal rules.
+   - The brand header masthead and navigation menu are framed by double-line border rules (`3px double var(--color-ink)`).
+3. **Three-Column Homepage Layout**:
+   - The desktop homepage features a three-part layout to maximize typographical density and scanning pace:
+     - **Left Column (Secondary Stories)**: Occupies `3 columns` (of a 12-column system) containing high-density text headlines and short descriptions.
+     - **Center Column (Lead Story)**: Occupies `6 columns`, containing the primary lead story with its prominent feature image, large display title, and lead-in text.
+     - **Right Column (Civic Sidebar)**: Occupies `3 columns`, housing the beats navigator, community notice/discourse box, and local sponsor spotlight.
+     - Thin vertical borders separate these columns.
+     - Breakpoints collapse this grid: at `1024px` (tablet landscape), it transitions to a two-column layout; at `768px` (mobile/portrait), it collapses to a single stacked column.
+4. **Editorial Blockquote Framing**:
+   - Blockquotes are styled as pull-out quotes framed by top and bottom double-line borders (`3px double var(--color-brick)`), centered or offset without a left border, matching high-end print news design.
 
 ---
 
