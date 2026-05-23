@@ -84,4 +84,78 @@ test('Subscriber Flow Integration', async (t) => {
     assert.ok(!html.includes('paywall-gate'), 'Gated article should not have paywall overlay for authenticated members');
     assert.ok(html.includes('great-grandfather worked the blast furnaces'), 'Gated article must expose full article text to authenticated members');
   });
+
+  // 6. Optional: Automated Paid Tier Stripe Checkout Test
+  if (process.env.STRIPE_SECRET_KEY && process.env.STRIPE_TEST_PRICE_ID) {
+    await t.test('Paid tier Stripe E2E Checkout Automation', async () => {
+      const cookieHeader = cookies.map(c => c.split(';')[0]).join('; ');
+      
+      const checkoutRes = await fetch(`${GHOST_URL}/members/api/create-stripe-checkout-session/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': cookieHeader,
+          'Origin': GHOST_URL,
+          'Referer': `${GHOST_URL}/`
+        },
+        body: JSON.stringify({
+          priceId: process.env.STRIPE_TEST_PRICE_ID,
+          successUrl: `${GHOST_URL}/`,
+          cancelUrl: `${GHOST_URL}/`
+        })
+      });
+      
+      assert.strictEqual(checkoutRes.status, 200, 'Checkout session creation should succeed');
+      const checkoutJson = await checkoutRes.json();
+      const checkoutUrl = checkoutJson.url;
+      
+      // Extract checkout session ID
+      const sessionIdMatch = /cs_test_[a-zA-Z0-9]+/i.exec(checkoutUrl);
+      assert.ok(sessionIdMatch, 'Checkout Session ID should be extractable from redirect URL');
+      const sessionId = sessionIdMatch[0];
+      console.log(`  Initiated Stripe Checkout Session: ${sessionId}`);
+
+      // Retrieve Checkout Session from Stripe to get Payment Intent ID
+      const stripeSessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}`, {
+        headers: {
+          'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`
+        }
+      });
+      assert.strictEqual(stripeSessionRes.status, 200, 'Retrieving Stripe checkout session details must succeed');
+      const stripeSession = await stripeSessionRes.json();
+      const paymentIntentId = stripeSession.payment_intent;
+      assert.ok(paymentIntentId, 'Checkout Session must have a Payment Intent ID associated with it');
+
+      // Programmatically confirm Payment Intent to simulate user inputting test card details
+      const confirmRes = await fetch(`https://api.stripe.com/v1/payment_intents/${paymentIntentId}/confirm`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          'payment_method': 'pm_card_visa'
+        })
+      });
+      assert.strictEqual(confirmRes.status, 200, 'Stripe Payment Intent confirmation must succeed');
+      console.log('  Confirmed Stripe Payment Intent programmatically.');
+
+      // Wait for Stripe webhook to sync and upgrade database tier
+      console.log('  Waiting 3.5 seconds for Stripe webhook to sync local database...');
+      await new Promise(resolve => setTimeout(resolve, 3500));
+
+      // Verify user has paid membership status and can access paid-only gated post
+      const paidPostRes = await fetch(`${GHOST_URL}/county-commission-split-vote-local-water-rights/`, {
+        headers: {
+          'Cookie': cookieHeader
+        }
+      });
+      assert.strictEqual(paidPostRes.status, 200);
+      const paidPostHtml = await paidPostRes.text();
+      assert.ok(!paidPostHtml.includes('paywall-gate'), 'Paid gated article should not have paywall overlay for paid members');
+      assert.ok(paidPostHtml.includes('Joseph DiSanti during a heated public comment'), 'Paid gated article must expose full text');
+    });
+  } else {
+    console.log('  [Info] STRIPE_SECRET_KEY or STRIPE_TEST_PRICE_ID not provided. Skipping E2E Stripe billing integration test.');
+  }
 });

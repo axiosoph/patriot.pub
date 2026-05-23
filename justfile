@@ -20,6 +20,10 @@ seed:
     @node bin/generate-mock-posts.js | mysql --socket=.nix-data/mysql/mysql.sock -u root
     @echo "Seeding complete. Please restart Ghost (just down && just up) to clear cached queries."
 
+# Inject Stripe credentials from environment variables into local MySQL
+configure-stripe:
+    @node bin/configure-stripe.js
+
 # Gracefully stop all background services
 down:
     process-compose down || true
