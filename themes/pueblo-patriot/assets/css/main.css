@@ -981,9 +981,12 @@ main {
 }
 
 /* Column 3: Civic Sidebar (Right Column) */
-.civic-sidebar-col {
+.homepage-broadsheet > .civic-sidebar-col {
   grid-column: 3;
   grid-row: 1;
+}
+
+.civic-sidebar-col {
   gap: var(--space-lg);
 }
 
