@@ -613,6 +613,39 @@ main {
   background-color: #e5b352;
 }
 
+.success-message {
+  display: none;
+  margin-top: var(--space-md);
+  font-family: var(--font-mono);
+  color: var(--color-sun);
+  font-size: 0.9rem;
+}
+
+.error-message {
+  display: none;
+  margin-top: var(--space-md);
+  font-family: var(--font-mono);
+  color: var(--color-brick);
+  font-size: 0.9rem;
+}
+
+/* Sibling selectors to show/hide messages based on form state class */
+.signup-form.success ~ .success-message {
+  display: block;
+}
+
+.signup-form.error ~ .error-message {
+  display: block;
+}
+
+/* Sidebar overrides for tighter presentation */
+.sidebar-widget .success-message,
+.sidebar-widget .error-message {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-top: var(--space-sm);
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .site-footer {
   border-top: 1px solid var(--color-border);
