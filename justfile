@@ -15,6 +15,11 @@ up:
     fi
     process-compose up
 
+# Seed mock articles into the database
+seed:
+    @node bin/generate-mock-posts.js | mysql --socket=.nix-data/mysql/mysql.sock -u root
+    @echo "Seeding complete. Please restart Ghost (just down && just up) to clear cached queries."
+
 # Gracefully stop all background services
 down:
     process-compose down || true
