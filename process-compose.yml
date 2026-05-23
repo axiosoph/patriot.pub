@@ -25,7 +25,7 @@ processes:
       period_seconds: 2
 
   ghost:
-    command: "ghost run"
+    command: "node current/index.js"
     working_dir: "./ghost-app"
     depends_on:
       mysql:

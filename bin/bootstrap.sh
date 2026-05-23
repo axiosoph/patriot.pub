@@ -93,6 +93,10 @@ else
   echo "Ghost CMS already installed. Skipping installation."
 fi
 
+# Disable ActivityPub (social_web) setting in database to prevent local bootstrap deadlocks
+echo "Disabling ActivityPub (social_web) setting in database..."
+mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings SET value = 'false' WHERE \`key\` = 'social_web';"
+
 # 7. Configure Ghost mail options to intercept via Mailpit
 echo "Configuring Ghost SMTP routing to Mailpit..."
 node -e '
