@@ -2,14 +2,122 @@
 
 <div class="container">
     
-    <!-- Editorial Grid Feed -->
-    <div class="post-feed">
-        {{#foreach posts}}
-            {{> "card"}}
-        {{else}}
-            <div class="no-posts" style="grid-column: span 12; text-align: center; padding: var(--space-xl) 0; font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-ink-muted);">
-                Constructing the press. Articles are being queued for publication.
+    <!-- Top Editorial Section (Lead Story + Sidebar) -->
+    <div class="hero-section">
+        
+        <!-- Left: Lead Story (First Post) -->
+        <div class="lead-story">
+            {{#foreach posts limit="1"}}
+                <article class="lead-story-card {{post_class}}">
+                    {{#if feature_image}}
+                    <a class="lead-story-image-link" href="{{url}}">
+                        <img class="lead-story-image"
+                            srcset="{{img_url feature_image size="s"}} 300w,
+                                    {{img_url feature_image size="m"}} 600w,
+                                    {{img_url feature_image size="l"}} 1000w"
+                            sizes="(max-width: 900px) 100vw, 800px"
+                            src="{{img_url feature_image size="l"}}"
+                            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                        />
+                    </a>
+                    {{/if}}
+                    
+                    <div class="lead-story-content">
+                        <div class="lead-story-meta">
+                            {{#if primary_tag}}
+                                {{#primary_tag}}
+                                    <span class="lead-story-tag">{{name}}</span>
+                                {{/primary_tag}}
+                                <span class="bull">&bull;</span>
+                            {{/if}}
+                            <span class="lead-story-date">{{date format="MMMM DD, YYYY"}}</span>
+                            <span class="bull">&bull;</span>
+                            <span class="lead-story-read-time">{{reading_time}}</span>
+                        </div>
+                        
+                        <h2 class="lead-story-title">
+                            <a href="{{url}}">{{title}}</a>
+                        </h2>
+                        
+                        <p class="lead-story-excerpt">
+                            {{excerpt words="45"}}...
+                        </p>
+                        
+                        <footer class="lead-story-footer">
+                            <div class="lead-story-author">
+                                <span class="byline-prefix">By</span>
+                                {{authors autolink="true"}}
+                            </div>
+                            <a href="{{url}}" class="read-more-link">Read Full Story &rarr;</a>
+                        </footer>
+                    </div>
+                </article>
+            {{else}}
+                <div class="no-posts" style="text-align: center; padding: var(--space-xl) 0; font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-ink-muted);">
+                    Constructing the press. Articles are being queued for publication.
+                </div>
+            {{/foreach}}
+        </div>
+
+        <!-- Right: Civic Sidebar -->
+        <aside class="civic-sidebar">
+            
+            <!-- Beats Navigator Widget -->
+            <div class="sidebar-widget beats-widget">
+                <h3 class="widget-title">Civic Beats</h3>
+                <p class="widget-subtitle">Hyperlocal reporting sections covering Pueblo County</p>
+                <div class="beats-list">
+                    <a href="/tag/politics/" class="beat-tag tag-politics">
+                        <span class="beat-dot"></span> Politics & Gov
+                    </a>
+                    <a href="/tag/business/" class="beat-tag tag-business">
+                        <span class="beat-dot"></span> Business & Dev
+                    </a>
+                    <a href="/tag/community/" class="beat-tag tag-community">
+                        <span class="beat-dot"></span> Community Affairs
+                    </a>
+                    <a href="/tag/culture/" class="beat-tag tag-culture">
+                        <span class="beat-dot"></span> Culture & Identity
+                    </a>
+                    <a href="/tag/nonprofit/" class="beat-tag tag-nonprofit">
+                        <span class="beat-dot"></span> Charitable & Org
+                    </a>
+                </div>
             </div>
+
+            <!-- Citizen Discourse Widget -->
+            <div class="sidebar-widget discourse-widget">
+                <h3 class="widget-title">Citizen Discourse</h3>
+                <p class="widget-text">Pueblo Patriot values constructive civil dialogue. Paid members can participate in our moderated forums on city council decisions, neighborhood affairs, and development policies.</p>
+                {{#if @member}}
+                    <div class="discourse-status verified">
+                        <span class="status-icon">✔</span> Registered Citizen Voice
+                    </div>
+                {{else}}
+                    <a href="#/portal/signup" class="btn btn-primary btn-block">Join the Discourse</a>
+                {{/if}}
+            </div>
+            
+        </aside>
+    </div>
+
+    <!-- Sponsor Strip (Charter Partner Showcase) -->
+    <div class="sponsor-strip">
+        <div class="sponsor-label">Community Partner Spotlight</div>
+        <div class="sponsor-body">
+            <div class="sponsor-info">
+                <h4 class="sponsor-name">Mesa Junction Bakery & Café</h4>
+                <p class="sponsor-tagline">Proudly sponsoring independent journalism in Pueblo. Fresh sourdough, pastries, and locally roasted coffee daily in historic Mesa Junction.</p>
+            </div>
+            <a href="https://mesajunctionbakery.example.com" target="_blank" rel="noopener" class="btn btn-secondary sponsor-btn">Visit Local Partner</a>
+        </div>
+    </div>
+
+    <!-- Secondary Feed (Remaining Posts in Grid) -->
+    <h2 class="section-title">Latest Local Coverage</h2>
+    <div class="post-feed">
+        {{#foreach posts from="2"}}
+            {{> "card"}}
         {{/foreach}}
     </div>
 
@@ -49,7 +157,6 @@
 
         if (form) {
             form.addEventListener("submit", (e) => {
-                // Ghost handles submission via ajax, but we listen for the status classes added to form
                 const observer = new MutationObserver((mutations) => {
                     mutations.forEach((mutation) => {
                         if (mutation.attributeName === "class") {
