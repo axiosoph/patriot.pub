@@ -1,0 +1,36 @@
+version: "0.5"
+
+processes:
+  mysql:
+    command: "mysqld --datadir=$MYSQL_DATADIR --socket=$MYSQL_UNIX_PORT --port=$MYSQL_TCP_PORT --bind-address=$MYSQL_HOST"
+    availability:
+      restart: "always"
+    readiness_probe:
+      exec:
+        command: "mysqladmin --socket=$MYSQL_UNIX_PORT -u root ping"
+      initial_delay_seconds: 1
+      period_seconds: 2
+      timeout_seconds: 1
+
+  mailpit:
+    command: "mailpit --smtp-bind-addr=127.0.0.1:1025 --ui-bind-addr=127.0.0.1:8025"
+    availability:
+      restart: "always"
+    readiness_probe:
+      http_get:
+        host: "127.0.0.1"
+        port: 8025
+        path: "/"
+      initial_delay_seconds: 1
+      period_seconds: 2
+
+  ghost:
+    command: "ghost run"
+    working_dir: "./ghost-app"
+    depends_on:
+      mysql:
+        condition: process_healthy
+    availability:
+      restart: "on_failure"
+    environment:
+      - "NODE_ENV=development"

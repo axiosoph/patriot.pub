@@ -1,0 +1,27 @@
+# Local environment configuration
+.env
+.env.local
+
+# Nix environment data and caches
+.nix-data/
+.direnv/
+.devenv/
+
+# Local Ghost application instance
+ghost-app/
+ghost-app-*.tgz
+
+# Node.js dependencies and compilation directories
+node_modules/
+dist/
+.npm/
+
+# Process compose and process logs
+process-compose.log
+*.log
+*.pid
+*.sock
+
+# OS specific files
+.DS_Store
+Thumbs.db
