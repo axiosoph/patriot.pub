@@ -106,7 +106,7 @@ mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings S
 
 # Configure primary editorial navigation beats
 echo "Configuring primary editorial navigation beats in settings..."
-mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings SET value = '[{\"label\":\"Politics\",\"url\":\"/tag/politics/\"},{\"label\":\"Business\",\"url\":\"/tag/business/\"},{\"label\":\"Community\",\"url\":\"/tag/community/\"},{\"label\":\"Opinion\",\"url\":\"/tag/opinion/\"}]' WHERE \`key\` = 'navigation';"
+mysql --socket="$MYSQL_UNIX_PORT" -u root -e "USE patriot_dev; UPDATE settings SET value = '[{\"label\":\"Politics\",\"url\":\"/tag/politics/\"},{\"label\":\"Business\",\"url\":\"/tag/business/\"},{\"label\":\"Community\",\"url\":\"/tag/community/\"},{\"label\":\"Culture\",\"url\":\"/tag/culture/\"}]' WHERE \`key\` = 'navigation';"
 
 # 7. Configure Ghost mail options to intercept via Mailpit
 echo "Configuring Ghost SMTP routing to Mailpit..."
